@@ -4,8 +4,6 @@
 **Goal:** Configure the custom fields, screens, permissions, and automation required to track software capitalization on Epics.
 **Time estimate:** 30-45 minutes.
 
-> Versioned guide. Propose changes via PR.
-
 ---
 
 ## 1. Custom fields to create
