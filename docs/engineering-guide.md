@@ -3,8 +3,6 @@
 **Audience:** Engineering Managers and Tech Leads
 **TL;DR:** When you create an Epic, decide if it's capex. Fill 4 Jira fields. Update them if stage changes. 15 min/month review.
 
-> Living doc. Propose changes via PR.
-
 ---
 
 ## 1. Why you're reading this
