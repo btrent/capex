@@ -3,7 +3,7 @@
 **Audience:** Engineering Finance partner and Accounting close team
 **Goal:** Run the monthly capitalization close repeatably, reconcile to GL, and flag anomalies before books close.
 
-> Living doc. Propose changes via PR. Policy: [`capitalization-policy.md`](./capitalization-policy.md).
+Policy: [`capitalization-policy.md`](./capitalization-policy.md).
 
 ---
 
