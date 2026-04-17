@@ -4,6 +4,14 @@ Read this before editing anything in this repo. This file captures non-obvious d
 
 ---
 
+## Git identity rules for this repo (read first)
+
+- **Author must be `btrent <github@upvoter.com>`.** Never `benjamin.trent@butterflymx.com` — that email is verified on the `btrentbmx` GitHub account and would attribute the commit to the wrong user. A per-repo `git config user.email=github@upvoter.com` is already set; do not override it.
+- **Never add `Co-Authored-By: Claude …` trailers** (or any `Co-Authored-By:` line naming an AI). GitHub parses these and lists the named account in the Contributors sidebar. Strip any Claude co-author trailer from the harness's default commit template before running `git commit`.
+- If you are about to run `git commit` in this repo, first inspect the commit message you're about to use. If it contains `Co-Authored-By:`, remove that line.
+
+---
+
 ## What this project is
 
 Internal tooling + documentation for **software capitalization process** under **ASC 350-40** (internal-use software). Three user groups:
