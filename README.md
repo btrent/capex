@@ -1,7 +1,5 @@
 # Software Capitalization (ASC 350-40)
 
-**Status:** Draft — pending Finance Controller sign-off.
-
 This repository is a ready-to-fork template for how a SaaS company identifies, measures, records, and audits capitalized software development costs under **ASC 350-40**. Designed as a joint artifact of Engineering and Finance, versioned like code, and reviewed via PR.
 
 ---
