@@ -6,8 +6,6 @@
 **Effective:** FY2026
 **Governing standard:** ASC 350-40 (Internal-Use Software)
 
-> This is a living policy. Propose changes via PR to the `capex` repository. Material changes require Controller approval and are logged in the change log at the bottom.
-
 ---
 
 ## 1. Purpose
