@@ -131,14 +131,6 @@ Rebuild the accounting XLSX template after design changes:
 python scripts/build_asset_register_template.py
 ```
 
-## How to contribute
-
-This is a living system. If a definition is unclear, a process is broken, or a policy needs to evolve:
-
-- Open a PR against this repo. Small edits welcome.
-- Material policy changes (scope, useful life defaults, capitalizable cost classes) require Controller approval before merge.
-- Log material changes in the change log at the bottom of [`docs/capitalization-policy.md`](./docs/capitalization-policy.md).
-
 ## Related
 
 - GAAP reference: [ASC 350-40 — Internal-Use Software](https://asc.fasb.org/) (subscription required).
