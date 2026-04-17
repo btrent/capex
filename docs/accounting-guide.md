@@ -3,7 +3,7 @@
 **Audience:** Accountant maintaining the CapEx asset register spreadsheet
 **Goal:** Keep the XLSX asset register current each month, produce clean JEs, and know when to migrate off the spreadsheet.
 
-> Living doc. Propose changes via PR. Policy: [`capitalization-policy.md`](./capitalization-policy.md).
+Policy: [`capitalization-policy.md`](./capitalization-policy.md).
 
 ---
 
