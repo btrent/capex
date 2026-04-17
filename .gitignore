@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+
+# OS
+.DS_Store
+
+# Real cost/compensation data (belt-and-suspenders; config/.gitignore also covers this)
+config/engineer_costs.csv
+*.real.yaml
+*.real.csv
+
+# Generated local config (config.example.yaml is committed, config.yaml is not)
+scripts/config.yaml
+
+# Editor
+.idea/
+.vscode/

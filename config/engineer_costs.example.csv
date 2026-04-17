@@ -1,0 +1,4 @@
+jira_account_id,name,monthly_fully_loaded_cost,start_date,end_date
+557058:abc123de-4f56-7890-abcd-ef1234567890,Jane Example,18500.00,2024-01-15,
+557058:bcd234ef-5a67-8901-bcde-f23456789012,John Sample,22000.00,2023-06-01,
+557058:cde345fa-6b78-9012-cdef-345678901234,Alex Placeholder,15750.00,2025-09-08,2026-03-31

@@ -1,0 +1,123 @@
+{
+  "custom_fields": {
+    "capex_eligible": "customfield_10050",
+    "capex_stage": "customfield_10051",
+    "capex_project_code": "customfield_10052",
+    "placed_in_service_date": "customfield_10053",
+    "story_points": "customfield_10016"
+  },
+  "epics": [
+    {
+      "key": "EPIC-1",
+      "fields": {
+        "summary": "SSO Platform Rollout",
+        "customfield_10050": {"value": "Yes"},
+        "customfield_10051": {"value": "Application Development"},
+        "customfield_10052": "CAPEX-2026-PLATFORM-SSO",
+        "customfield_10053": "2026-03-15"
+      }
+    },
+    {
+      "key": "EPIC-2",
+      "fields": {
+        "summary": "Maintenance / bug-fix bucket",
+        "customfield_10050": {"value": "No"},
+        "customfield_10051": {"value": "Post-Implementation"},
+        "customfield_10052": null,
+        "customfield_10053": null
+      }
+    },
+    {
+      "key": "EPIC-3",
+      "fields": {
+        "summary": "Resident App v2 checkout flow",
+        "customfield_10050": {"value": "Yes"},
+        "customfield_10051": {"value": "Application Development"},
+        "customfield_10052": "CAPEX-2026-RESIDENT-APP",
+        "customfield_10053": null
+      }
+    }
+  ],
+  "issues": [
+    {
+      "key": "SSO-1",
+      "fields": {
+        "summary": "Build SAML provider adapter",
+        "assignee": {"accountId": "user-alice", "displayName": "Alice Chen"},
+        "resolutiondate": "2026-03-05T10:00:00.000-0500",
+        "parent": {"key": "EPIC-1"},
+        "customfield_10016": 5
+      }
+    },
+    {
+      "key": "SSO-2",
+      "fields": {
+        "summary": "Session handoff",
+        "assignee": {"accountId": "user-alice", "displayName": "Alice Chen"},
+        "resolutiondate": "2026-03-12T10:00:00.000-0500",
+        "parent": {"key": "EPIC-1"},
+        "customfield_10016": 2
+      }
+    },
+    {
+      "key": "SSO-3",
+      "fields": {
+        "summary": "Login UX polish",
+        "assignee": {"accountId": "user-bob", "displayName": "Bob Singh"},
+        "resolutiondate": "2026-03-08T10:00:00.000-0500",
+        "parent": {"key": "EPIC-1"},
+        "customfield_10016": 3
+      }
+    },
+    {
+      "key": "MAINT-1",
+      "fields": {
+        "summary": "Fix login typo",
+        "assignee": {"accountId": "user-alice", "displayName": "Alice Chen"},
+        "resolutiondate": "2026-03-20T10:00:00.000-0500",
+        "parent": {"key": "EPIC-2"},
+        "customfield_10016": 3
+      }
+    },
+    {
+      "key": "MAINT-2",
+      "fields": {
+        "summary": "Upgrade dependency",
+        "assignee": {"accountId": "user-bob", "displayName": "Bob Singh"},
+        "resolutiondate": "2026-03-22T10:00:00.000-0500",
+        "parent": {"key": "EPIC-2"},
+        "customfield_10016": 2
+      }
+    },
+    {
+      "key": "RES-1",
+      "fields": {
+        "summary": "Checkout page scaffold",
+        "assignee": {"accountId": "user-carol", "displayName": "Carol Nguyen"},
+        "resolutiondate": "2026-03-10T10:00:00.000-0500",
+        "parent": {"key": "EPIC-3"},
+        "customfield_10016": 5
+      }
+    },
+    {
+      "key": "RES-2",
+      "fields": {
+        "summary": "Payment form",
+        "assignee": {"accountId": "user-carol", "displayName": "Carol Nguyen"},
+        "resolutiondate": "2026-03-18T10:00:00.000-0500",
+        "parent": {"key": "EPIC-3"},
+        "customfield_10016": null
+      }
+    },
+    {
+      "key": "ORPHAN-1",
+      "fields": {
+        "summary": "Ad-hoc ticket by unknown contractor",
+        "assignee": {"accountId": "user-dana", "displayName": "Dana Wu"},
+        "resolutiondate": "2026-03-25T10:00:00.000-0500",
+        "parent": {"key": "EPIC-1"},
+        "customfield_10016": 4
+      }
+    }
+  ]
+}

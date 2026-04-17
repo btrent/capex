@@ -1,0 +1,9 @@
+# Never commit real cost / compensation data to this repo.
+# These files are generated from HR/payroll and contain PII.
+
+# The real cost roster (compensation data)
+engineer_costs.csv
+
+# Any file explicitly marked as "real" data
+*.real.yaml
+*.real.csv

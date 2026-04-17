@@ -1,0 +1,67 @@
+# CapEx Project Registry
+#
+# Canonical list of Project Codes referenced by Jira Epics and the
+# monthly capitalization report. Treat this file as the source of
+# truth for which projects are "real" — new projects must be added
+# here before they appear on the Asset Register.
+#
+# Naming convention: CAPEX-<FY>-<TEAM>-<SHORTNAME>
+#   - FY:         fiscal year the project was initiated (e.g., 2026)
+#   - TEAM:       owning team, UPPER-KEBAB (e.g., PLATFORM, BILLING, MOBILE)
+#   - SHORTNAME:  brief descriptor, UPPER-KEBAB (e.g., SSO, V2, PORTAL)
+#
+# To add a project: open a PR adding a new entry. Eng Finance partner
+# merges after confirming the project exists in Jira with at least
+# one Epic tagged `CapEx Eligible = Yes`.
+#
+# Schema (per project entry):
+#   code                 (string, required)  Unique project code; matches
+#                                             the `CapEx Project Code` field
+#                                             on all associated Jira Epics.
+#   name                 (string, required)  Human-readable name.
+#   owner                (string, required)  Owning team slug (lowercase-kebab).
+#   useful_life_months   (int, required)     Default amortization period.
+#                                             36 months unless Finance has
+#                                             documented an override here.
+#   status               (enum, required)    One of: active, retired, abandoned.
+#                                             Drives whether the monthly report
+#                                             accepts new capitalization against
+#                                             this code.
+#   notes                (string, optional)  Free-form. Use for useful-life
+#                                             override rationale, retirement
+#                                             reason, or context for auditors.
+
+projects:
+
+  - code: CAPEX-2026-PLATFORM-SSO
+    name: Enterprise SSO Integration
+    owner: platform-team
+    useful_life_months: 36
+    status: active
+    # Net-new SAML + OIDC provider support for enterprise customers.
+    # Kickoff Feb 2026, target GA Q3 2026.
+
+  - code: CAPEX-2026-BILLING-V2
+    name: Billing Engine v2
+    owner: billing-team
+    useful_life_months: 36
+    status: active
+    # Ground-up rewrite enabling usage-based pricing.
+    # Current system is flat-subscription only.
+
+  - code: CAPEX-2026-MOBILE-VISITOR-SCHEDULE
+    name: Visitor Pre-Scheduling (Mobile)
+    owner: mobile-team
+    useful_life_months: 36
+    status: active
+    # New resident-facing feature to pre-authorize visitors by time window.
+
+  - code: CAPEX-2025-PLATFORM-EVENT-BUS
+    name: Internal Event Bus Platform
+    owner: platform-team
+    useful_life_months: 60
+    status: active
+    notes: >
+      Useful life override to 60 months approved by Controller 2025-11:
+      foundational platform with expected multi-year lifespan servicing
+      multiple downstream product teams. Re-evaluate annually.

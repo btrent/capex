@@ -1,0 +1,100 @@
+# Monthly CapEx report workflow.
+#
+# Runs at 06:00 UTC on the 1st of each month to report on the PRIOR month.
+# Can also be dispatched manually with a specific month and/or dry-run flag.
+#
+# Required repo secrets:
+#   JIRA_EMAIL              — Jira Cloud login email
+#   JIRA_API_TOKEN          — Atlassian API token
+#   SMTP_USER               — SMTP login (e.g., Gmail app password user)
+#   SMTP_PASS               — SMTP password / app password
+#   GOOGLE_SERVICE_ACCOUNT_JSON — JSON body of a GCP service account with Drive access
+# Optional:
+#   SLACK_WEBHOOK_URL       — If set, post failure notifications to Slack.
+
+name: Monthly CapEx Report
+
+on:
+  schedule:
+    - cron: '0 6 1 * *'
+  workflow_dispatch:
+    inputs:
+      month:
+        description: 'Month to report on (YYYY-MM). Defaults to prior month.'
+        required: false
+        type: string
+      dry_run:
+        description: 'Skip Drive upload and email.'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  run-report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+      JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASS: ${{ secrets.SMTP_PASS }}
+      GOOGLE_SERVICE_ACCOUNT_JSON: ${{ github.workspace }}/sa.json
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: scripts/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Write service account JSON
+        run: echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}' > "$GOOGLE_SERVICE_ACCOUNT_JSON"
+
+      - name: Compute month arg
+        id: args
+        run: |
+          MONTH="${{ github.event.inputs.month }}"
+          DRY="${{ github.event.inputs.dry_run }}"
+          if [ -z "$MONTH" ]; then
+            MONTH=$(python -c "from datetime import date, timedelta; d=date.today().replace(day=1)-timedelta(days=1); print(d.strftime('%Y-%m'))")
+          fi
+          echo "month=$MONTH" >> "$GITHUB_OUTPUT"
+          if [ "$DRY" = "true" ]; then
+            echo "dry_flag=--dry-run" >> "$GITHUB_OUTPUT"
+          else
+            echo "dry_flag=" >> "$GITHUB_OUTPUT"
+          fi
+          echo "out=capex-report-${MONTH}.xlsx" >> "$GITHUB_OUTPUT"
+
+      - name: Run monthly CapEx report
+        run: |
+          python scripts/monthly_capex_report.py \
+            --month "${{ steps.args.outputs.month }}" \
+            --config scripts/config.yaml \
+            --out "${{ steps.args.outputs.out }}" \
+            ${{ steps.args.outputs.dry_flag }}
+
+      - name: Upload report as workflow artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capex-report-${{ steps.args.outputs.month }}
+          path: ${{ steps.args.outputs.out }}
+          if-no-files-found: warn
+          retention-days: 90
+
+      - name: Slack notify on failure
+        if: failure() && env.SLACK_WEBHOOK_URL != ''
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+            --data "{\"text\":\":x: Monthly CapEx report failed for ${{ steps.args.outputs.month }}. <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View run>\"}" \
+            "$SLACK_WEBHOOK_URL"

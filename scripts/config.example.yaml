@@ -1,0 +1,56 @@
+# Example configuration for monthly_capex_report.py
+# Copy to config.yaml and adjust for your environment.
+# Secrets are NEVER stored here — they come from environment variables.
+
+jira:
+  # Your Jira Cloud site URL
+  base_url: https://yourcompany.atlassian.net
+
+  # Authentication: set JIRA_EMAIL and JIRA_API_TOKEN in the environment.
+  # Tokens: https://id.atlassian.com/manage-profile/security/api-tokens
+
+  # Map logical field names -> Jira custom field IDs. Find the IDs via
+  # `GET /rest/api/3/field` or the field config screen. Do NOT reference
+  # fields by display name — Jira Cloud renames break.
+  custom_fields:
+    capex_eligible: customfield_10050         # select: Yes/No/TBD
+    capex_stage: customfield_10051            # select: Preliminary / Application Development / Post-Implementation
+    capex_project_code: customfield_10052     # text: e.g. CAPEX-2026-PLATFORM-SSO
+    placed_in_service_date: customfield_10053 # date
+    story_points: customfield_10016           # number: standard Jira Cloud story points field
+
+  # JQL for the denominator (all resolved issues in the month). {start} and
+  # {end} are filled in by the script as ISO dates (end is exclusive).
+  jql_denominator: 'resolutiondate >= {start} AND resolutiondate < {end}'
+
+  # Optional — documented for humans; the script filters via parent-epic lookup,
+  # not JQL, because Jira Cloud does not always surface Epic custom fields on
+  # child issues via JQL reliably.
+  jql_capex_filter: '"CapEx Eligible" = Yes AND "CapEx Stage" = "Application Development"'
+
+paths:
+  # Finance maintains this CSV; it is gitignored when real. Columns:
+  # jira_account_id,name,monthly_fully_loaded_cost,start_date,end_date
+  engineer_costs: ./config/engineer_costs.csv
+  # Project registry (capex project code -> display name, owner, useful life override)
+  projects: ./config/projects.yaml
+
+delivery:
+  # Drive folder to upload monthly XLSX to. Service account must have editor access.
+  drive_folder_id: "PLACEHOLDER-DRIVE-FOLDER-ID"
+
+  email:
+    from: capex-reports@yourcompany.com
+    to:
+      - finance@yourcompany.com
+      - eng-finance-partner@yourcompany.com
+    smtp_host: smtp.gmail.com
+    smtp_port: 587
+    # SMTP_USER and SMTP_PASS from environment (Gmail app password recommended)
+
+thresholds:
+  # Fail the run if we emit more than this many warnings (catches misconfig / field drift)
+  warning_count_max: 25
+  # Sanity-check target range for org-wide capex ratio (not enforced, logged only)
+  capex_ratio_sanity_min: 0.15
+  capex_ratio_sanity_max: 0.45
